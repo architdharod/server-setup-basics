@@ -55,6 +55,9 @@ sudo ufw allow 443  //If a web server is being used
 
 other useful commands: 
 ```
+#List rules with numbers:
+sudo ufw status numbered
+
 Delete by rule specification:
 sudo ufw delete allow 80
 
