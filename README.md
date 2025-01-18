@@ -84,6 +84,45 @@ sudo ufw logging on
 sudo ufw logging medium # levels are low, medium, high, full 
 ```
 
+#### Tailscale
+1. SSH into the vps/remote server and install tailscale:
+```
+curl -fsSL https://tailscale.com/install.sh | sh
+```
+2. Authenticate and connect your machine to your Tailscale network:
+```
+sudo tailscale up
+```
+
+3. Enable UFW
+```
+sudo ufw enable
+```
+
+4. Restrict all other traffic (using the ufw command above) and allowing traffic only from the tailscale0 network:
+```
+sudo ufw allow in on tailscale0
+```
+To completely lock down your server while retaining ssh access, you could delete every rule except for the "Anywhere on tailscale0" rule. <br>
+For the example above, we'll delete all "22/tcp" rules, which will remove the ability to ssh over regular connections:
+```
+sudo ufw delete 22/tcp
+```
+
+5. Restart ufw and ssh
+```
+sudo ufw reload
+sudo service ssh restart
+```
+
+6. we can ssh into the server using the tailscale ip of the vpc/remote server:
+```
+ssh <username>@<copied 100.x.y.z address of the vpc>
+```
+
+
 
 ---
-credit: [become sovran](https://becomesovran.com/blog/server-setup-basics.html)
+credit: 
+[tailscale](https://tailscale.com/kb/1077/secure-server-ubuntu)
+[become sovran](https://becomesovran.com/blog/server-setup-basics.html)
