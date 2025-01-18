@@ -31,7 +31,55 @@ Goal: Protect root account.
     AllowUsers newuser                 # Only allow specific users to login
    ```
 
-## Users
+## Basic Network Safety
+Goal: lock down ports that dont need to be exposed to the internet using UFW; Optional: banning ips that try to access wrong port or in an unauthorised way using Fail2Ban
+#### UFW
+1. install using the following commands: 
+```
+sudo apt install ufw
+sudo apt install fail2ban
+```
+
+2. Set least privileges:
+```
+sudo ufw default deny incoming
+sudo ufw allow outgoing
+```
+
+3. Allowing connection to the server in a few useful ways:
+```
+sudo ufw allow ssh
+sudo ufw allow 80  //If a web server is being used
+sudo ufw allow 443  //If a web server is being used
+```
+
+other useful commands: 
+```
+Delete by rule specification:
+sudo ufw delete allow 80
+
+#You can allow connections from specific IP addresses:
+sudo ufw allow from 192.168.1.100
+#You can also only allow an IP to connect to a specfic port with: 
+sudo ufw allow from 192.168.1.100 to any port 22
+
+#If you neeed to allow a range of ports: 
+sudo ufw allow 6000:6007/tcp
+#To further protect from brut force attacks you can rate limit specific ports with: 
+sudo ufw limit ssh
+#This would limit port 22 to 6 connections in 30 seconds from a single IP. To see the status of the firewall you can use: 
+
+#Reset incase you need to start over: 
+sudo ufw reset
+
+#and to enable and disable: 
+sudo ufw enable 
+sudo ufw disable 
+
+#finaly to enable logging and adjusting the log level: 
+sudo ufw logging on
+sudo ufw logging medium # levels are low, medium, high, full 
+```
 
 
 ---
