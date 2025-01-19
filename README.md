@@ -120,7 +120,10 @@ sudo service ssh restart
 ssh <username>@<copied 100.x.y.z address of the vpc>
 ```
 
+## Quality of life tools:
+1. [BTOP](https://terminaltrove.com/btop/):
 
+resource monitor for the terminal. It offers real-time visualization of usage statistics for your machine's CPU, memory, disks, network, and processes.
 
 ---
 credit: 
